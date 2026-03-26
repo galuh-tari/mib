@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Health Metrics — Sign In / Sign Up</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <script src="https://unpkg.com/lucide@latest"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -61,7 +62,6 @@
       font-weight: 700;
       color: var(--text);
       margin-bottom: 28px;
-      white-space: nowrap;
     }
     label {
       display: block;
@@ -72,7 +72,16 @@
       margin-top: 14px;
     }
     label:first-of-type { margin-top: 0; }
-    input[type="email"], input[type="password"] {
+    
+    /* Wrapper untuk Input Password agar Ikon berada di dalam */
+    .input-group {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: 100%;
+    }
+    
+    input[type="email"], input[type="password"], input[type="text"] {
       width: 100%;
       padding: 11px 14px;
       background: var(--input-bg);
@@ -84,14 +93,37 @@
       outline: none;
       transition: border-color 0.2s, box-shadow 0.2s;
     }
+    
+    /* Beri ruang di kanan input agar teks tidak menabrak ikon */
+    .input-group input {
+      padding-right: 42px;
+    }
+
     input:focus {
       border-color: var(--purple-light);
       box-shadow: 0 0 0 3px rgba(108,39,217,0.1);
       background: #fff;
     }
+
+    /* Styling Ikon Mata */
+    .toggle-password {
+      position: absolute;
+      right: 12px;
+      cursor: pointer;
+      color: #888;
+      width: 18px;
+      height: 18px;
+      transition: color 0.2s;
+      user-select: none;
+    }
+    .toggle-password:hover {
+      color: var(--purple);
+    }
+
     .forgot { text-align: right; margin-top: 6px; font-size: 12px; }
     .forgot a { color: var(--muted); text-decoration: none; cursor: pointer; }
     .forgot a:hover { color: var(--purple); text-decoration: underline; }
+    
     .btn-primary {
       margin-top: 22px;
       width: 100%;
@@ -112,9 +144,11 @@
     .btn-primary:hover { background: var(--purple-dark); }
     .btn-primary:active { transform: scale(0.98); }
     .btn-primary:disabled { background: #aaa; cursor: not-allowed; box-shadow: none; }
+    
     .switch-link { margin-top: 18px; font-size: 13px; color: var(--muted); }
     .switch-link a { color: var(--purple); font-weight: 600; text-decoration: none; cursor: pointer; }
     .switch-link a:hover { text-decoration: underline; }
+    
     .banner-side {
       width: 300px;
       flex-shrink: 0;
@@ -133,7 +167,6 @@
       color: var(--white);
       line-height: 1.15;
       margin-bottom: 12px;
-      white-space: nowrap;
     }
     .banner-side p {
       font-size: 13px;
@@ -149,7 +182,7 @@
       object-fit: contain;
       object-position: bottom center;
     }
-    /* Toast notification */
+    
     .toast {
       position: fixed;
       top: 24px; left: 50%;
@@ -167,6 +200,7 @@
     .toast.show { transform: translateX(-50%) translateY(0); }
     .toast.success { background: #22c55e; }
     .toast.error { background: #ef4444; }
+
     @media (max-width: 620px) {
       .banner-side { display: none; }
       .form-side { padding: 40px 28px; }
@@ -180,14 +214,18 @@
 
 <div class="stage">
 
-  <!-- SIGN IN -->
   <div class="card active" id="card-signin">
     <div class="form-side">
       <h2>Sign in to your account</h2>
       <label>Email</label>
       <input type="email" id="signin-email" placeholder="you@example.com" />
+      
       <label>Password</label>
-      <input type="password" id="signin-password" placeholder="••••••••" />
+      <div class="input-group">
+        <input type="password" id="signin-password" placeholder="••••••••" />
+        <i data-lucide="eye" class="toggle-password" id="icon-signin" onclick="togglePassword('signin-password', 'icon-signin')"></i>
+      </div>
+
       <div class="forgot"><a onclick="handleForgotPassword()">Forgot password?</a></div>
       <button class="btn-primary" id="btn-signin" onclick="handleSignIn()">SIGN IN</button>
       <p class="switch-link">Don't have an account? <a onclick="showPanel('signup')">Sign up here.</a></p>
@@ -199,17 +237,26 @@
     </div>
   </div>
 
-  <!-- SIGN UP -->
   <div class="card" id="card-signup">
     <div class="form-side">
       <h2>Please sign up here</h2>
       <label>Email</label>
       <input type="email" id="signup-email" placeholder="you@example.com" />
+      
       <label>Password</label>
-      <input type="password" id="signup-password" placeholder="••••••••" />
+      <div class="input-group">
+        <input type="password" id="signup-password" placeholder="••••••••" />
+        <i data-lucide="eye" class="toggle-password" id="icon-signup" onclick="togglePassword('signup-password', 'icon-signup')"></i>
+      </div>
+
       <label>Confirm Password</label>
-      <input type="password" id="signup-confirm" placeholder="••••••••" />
+      <div class="input-group">
+        <input type="password" id="signup-confirm" placeholder="••••••••" />
+        <i data-lucide="eye" class="toggle-password" id="icon-confirm" onclick="togglePassword('signup-confirm', 'icon-confirm')"></i>
+      </div>
+
       <button class="btn-primary" id="btn-signup" onclick="handleSignUp()">SIGN UP</button>
+      <p class="switch-link">Already have an account? <a onclick="showPanel('signin')">Sign in here.</a></p>
     </div>
     <div class="banner-side">
       <h1>WELCOME!</h1>
@@ -237,6 +284,9 @@
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
+  // Jalankan Ikon Lucide
+  lucide.createIcons();
+
   // Toast helper
   function showToast(msg, type = '') {
     const t = document.getElementById('toast');
@@ -244,6 +294,21 @@
     t.className = 'toast ' + type;
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  // Fungsi Show/Hide Password
+  window.togglePassword = function(inputId, iconId) {
+    const passwordInput = document.getElementById(inputId);
+    const iconElement = document.getElementById(iconId);
+    
+    if (passwordInput.type === "password") {
+      passwordInput.type = "text";
+      iconElement.setAttribute('data-lucide', 'eye-off');
+    } else {
+      passwordInput.type = "password";
+      iconElement.setAttribute('data-lucide', 'eye');
+    }
+    lucide.createIcons(); // Re-render ikon
   }
 
   // Show panel
