@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dashboard — Health Metrics</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --purple: #6C27D9;
+      --purple-dark: #4B0FAD;
+      --purple-light: #9B5EF5;
+      --white: #ffffff;
+      --gray-bg: #F0F2F5;
+      --text: #1a1a2e;
+      --muted: #888;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--gray-bg);
+      min-height: 100vh;
+    }
+    /* Navbar */
+    .navbar {
+      background: var(--purple);
+      padding: 16px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 16px rgba(108,39,217,0.2);
+    }
+    .navbar h1 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--white);
+    }
+    .navbar-right { display: flex; align-items: center; gap: 16px; }
+    .user-email {
+      font-size: 13px;
+      color: rgba(255,255,255,0.85);
+    }
+    .btn-logout {
+      padding: 8px 20px;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: 1.5px solid rgba(255,255,255,0.4);
+      border-radius: 8px;
+      font-family: 'Poppins', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .btn-logout:hover { background: rgba(255,255,255,0.25); }
+    /* Main */
+    .main { padding: 40px; }
+    .welcome-box {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 32px 36px;
+      margin-bottom: 28px;
+      box-shadow: 0 4px 20px rgba(108,39,217,0.08);
+    }
+    .welcome-box h2 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+    .welcome-box p { font-size: 14px; color: var(--muted); }
+    /* Cards */
+    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+    .card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 28px 24px;
+      box-shadow: 0 4px 20px rgba(108,39,217,0.07);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .card-icon { font-size: 32px; }
+    .card-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+    .card-value { font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 700; color: var(--purple); }
+    .card-unit { font-size: 12px; color: var(--muted); }
+  </style>
+</head>
+<body>
+
+  <div class="navbar">
+    <h1>Health Metrics</h1>
+    <div class="navbar-right">
+      <span class="user-email" id="user-email">Loading...</span>
+      <button class="btn-logout" onclick="handleLogout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="main">
+    <div class="welcome-box">
+      <h2>Selamat Datang! 👋</h2>
+      <p>Berikut adalah ringkasan data kesehatan kamu hari ini.</p>
+    </div>
+    <div class="cards">
+      <div class="card">
+        <div class="card-icon">❤️</div>
+        <div class="card-label">Detak Jantung</div>
+        <div class="card-value">72</div>
+        <div class="card-unit">bpm</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🩸</div>
+        <div class="card-label">Tekanan Darah</div>
+        <div class="card-value">120/80</div>
+        <div class="card-unit">mmHg</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌡️</div>
+        <div class="card-label">Suhu Tubuh</div>
+        <div class="card-value">36.5</div>
+        <div class="card-unit">°C</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🫁</div>
+        <div class="card-label">Saturasi O₂</div>
+        <div class="card-value">98</div>
+        <div class="card-unit">%</div>
+      </div>
+    </div>
+  </div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+  import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB4aNTSgU5wLoarKUGduLnpbwS9gI13PU4",
+    authDomain: "manajemen-informasi-biomedis.firebaseapp.com",
+    projectId: "manajemen-informasi-biomedis",
+    storageBucket: "manajemen-informasi-biomedis.firebasestorage.app",
+    messagingSenderId: "80926759256",
+    appId: "1:80926759256:web:123e1e293638aa4e892d2d",
+    measurementId: "G-LGT7PZFWMH"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Cek apakah user sudah login
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      document.getElementById('user-email').textContent = user.email;
+    } else {
+      // Kalau belum login, redirect ke halaman login
+      window.location.href = 'index.html';
+    }
+  });
+
+  window.handleLogout = async function() {
+    await signOut(auth);
+    window.location.href = 'index.html';
+  }
+</script>
+</body>
+</html>

@@ -7,7 +7,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
       --purple: #6C27D9;
       --purple-dark: #4B0FAD;
@@ -18,7 +17,6 @@
       --text: #1a1a2e;
       --muted: #888;
     }
-
     body {
       font-family: 'Inter', sans-serif;
       background: var(--gray-bg);
@@ -28,7 +26,6 @@
       align-items: center;
       justify-content: center;
     }
-
     .stage {
       width: 100%;
       display: flex;
@@ -36,7 +33,6 @@
       justify-content: center;
       padding: 48px 16px;
     }
-
     .card {
       display: none;
       width: 100%;
@@ -48,12 +44,10 @@
       animation: cardIn 0.4s ease;
     }
     .card.active { display: flex; }
-
     @keyframes cardIn {
       from { opacity: 0; transform: translateY(18px) scale(0.98); }
       to   { opacity: 1; transform: translateY(0) scale(1); }
     }
-
     .form-side {
       flex: 1;
       padding: 52px 44px;
@@ -61,7 +55,6 @@
       flex-direction: column;
       justify-content: center;
     }
-
     .form-side h2 {
       font-family: 'Poppins', sans-serif;
       font-size: 18px;
@@ -70,7 +63,6 @@
       margin-bottom: 28px;
       white-space: nowrap;
     }
-
     label {
       display: block;
       font-size: 12px;
@@ -80,9 +72,7 @@
       margin-top: 14px;
     }
     label:first-of-type { margin-top: 0; }
-
-    input[type="email"],
-    input[type="password"] {
+    input[type="email"], input[type="password"] {
       width: 100%;
       padding: 11px 14px;
       background: var(--input-bg);
@@ -99,11 +89,9 @@
       box-shadow: 0 0 0 3px rgba(108,39,217,0.1);
       background: #fff;
     }
-
     .forgot { text-align: right; margin-top: 6px; font-size: 12px; }
-    .forgot a { color: var(--muted); text-decoration: none; }
+    .forgot a { color: var(--muted); text-decoration: none; cursor: pointer; }
     .forgot a:hover { color: var(--purple); text-decoration: underline; }
-
     .btn-primary {
       margin-top: 22px;
       width: 100%;
@@ -121,13 +109,12 @@
       transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
       box-shadow: 0 4px 18px rgba(108,39,217,0.35);
     }
-    .btn-primary:hover { background: var(--purple-dark); box-shadow: 0 6px 24px rgba(108,39,217,0.45); }
+    .btn-primary:hover { background: var(--purple-dark); }
     .btn-primary:active { transform: scale(0.98); }
-
+    .btn-primary:disabled { background: #aaa; cursor: not-allowed; box-shadow: none; }
     .switch-link { margin-top: 18px; font-size: 13px; color: var(--muted); }
     .switch-link a { color: var(--purple); font-weight: 600; text-decoration: none; cursor: pointer; }
     .switch-link a:hover { text-decoration: underline; }
-
     .banner-side {
       width: 300px;
       flex-shrink: 0;
@@ -139,7 +126,6 @@
       overflow: hidden;
       min-height: 420px;
     }
-
     .banner-side h1 {
       font-family: 'Poppins', sans-serif;
       font-size: 26px;
@@ -149,25 +135,38 @@
       margin-bottom: 12px;
       white-space: nowrap;
     }
-
     .banner-side p {
       font-size: 13px;
       font-weight: 600;
       color: rgba(255,255,255,0.85);
       line-height: 1.55;
     }
-
     .banner-img {
       position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
+      bottom: 0; left: 0; right: 0;
       width: 100%;
       height: 75%;
       object-fit: contain;
       object-position: bottom center;
     }
-
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      top: 24px; left: 50%;
+      transform: translateX(-50%) translateY(-80px);
+      background: #333;
+      color: #fff;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      z-index: 999;
+      transition: transform 0.3s ease;
+      white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast.success { background: #22c55e; }
+    .toast.error { background: #ef4444; }
     @media (max-width: 620px) {
       .banner-side { display: none; }
       .form-side { padding: 40px 28px; }
@@ -177,55 +176,131 @@
 </head>
 <body>
 
-  <div class="stage">
+<div class="toast" id="toast"></div>
 
-    <!-- SIGN IN -->
-    <div class="card active" id="card-signin">
-      <div class="form-side">
-        <h2>Sign in to your account</h2>
-        <label>Email</label>
-        <input type="email" placeholder="you@example.com" />
-        <label>Password</label>
-        <input type="password" placeholder="••••••••" />
-        <div class="forgot"><a href="#">Forgot password?</a></div>
-        <button class="btn-primary">SIGN IN</button>
-        <p class="switch-link">Don't have an account? <a onclick="showPanel('signup')">Sign up here.</a></p>
-      </div>
-      <div class="banner-side">
-        <h1>WELCOME BACK!</h1>
-        <p>Smarter Decisions Start with Better Health Metrics.</p>
-        <img class="banner-img" src="4949532_19799.png" alt="Health Metrics Illustration" />
-      </div>
+<div class="stage">
+
+  <!-- SIGN IN -->
+  <div class="card active" id="card-signin">
+    <div class="form-side">
+      <h2>Sign in to your account</h2>
+      <label>Email</label>
+      <input type="email" id="signin-email" placeholder="you@example.com" />
+      <label>Password</label>
+      <input type="password" id="signin-password" placeholder="••••••••" />
+      <div class="forgot"><a onclick="handleForgotPassword()">Forgot password?</a></div>
+      <button class="btn-primary" id="btn-signin" onclick="handleSignIn()">SIGN IN</button>
+      <p class="switch-link">Don't have an account? <a onclick="showPanel('signup')">Sign up here.</a></p>
     </div>
-
-    <!-- SIGN UP -->
-    <div class="card" id="card-signup">
-      <div class="form-side">
-        <h2>Please sign up here</h2>
-        <label>Email</label>
-        <input type="email" placeholder="you@example.com" />
-        <label>Password</label>
-        <input type="password" placeholder="••••••••" />
-        <label>Confirm Password</label>
-        <input type="password" placeholder="••••••••" />
-        <button class="btn-primary">SIGN UP</button>
-      </div>
-      <div class="banner-side">
-        <h1>WELCOME!</h1>
-        <p>Smarter Decisions Start with Better Health Metrics.</p>
-        <img class="banner-img" src="4949532_19799.png" alt="Health Metrics Illustration" />
-      </div>
+    <div class="banner-side">
+      <h1>WELCOME BACK!</h1>
+      <p>Smarter Decisions Start with Better Health Metrics.</p>
+      <img class="banner-img" src="4949532_19799.png" alt="Illustration" />
     </div>
-
   </div>
 
-  <script>
-    function showPanel(panel) {
-      ['signin','signup'].forEach(p => {
-        document.getElementById('card-' + p).classList.remove('active');
-      });
-      document.getElementById('card-' + panel).classList.add('active');
+  <!-- SIGN UP -->
+  <div class="card" id="card-signup">
+    <div class="form-side">
+      <h2>Please sign up here</h2>
+      <label>Email</label>
+      <input type="email" id="signup-email" placeholder="you@example.com" />
+      <label>Password</label>
+      <input type="password" id="signup-password" placeholder="••••••••" />
+      <label>Confirm Password</label>
+      <input type="password" id="signup-confirm" placeholder="••••••••" />
+      <button class="btn-primary" id="btn-signup" onclick="handleSignUp()">SIGN UP</button>
+    </div>
+    <div class="banner-side">
+      <h1>WELCOME!</h1>
+      <p>Smarter Decisions Start with Better Health Metrics.</p>
+      <img class="banner-img" src="4949532_19799.png" alt="Illustration" />
+    </div>
+  </div>
+
+</div>
+
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyB4aNTSgU5wLoarKUGduLnpbwS9gI13PU4",
+    authDomain: "manajemen-informasi-biomedis.firebaseapp.com",
+    projectId: "manajemen-informasi-biomedis",
+    storageBucket: "manajemen-informasi-biomedis.firebasestorage.app",
+    messagingSenderId: "80926759256",
+    appId: "1:80926759256:web:123e1e293638aa4e892d2d",
+    measurementId: "G-LGT7PZFWMH"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+
+  // Toast helper
+  function showToast(msg, type = '') {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className = 'toast ' + type;
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  // Show panel
+  window.showPanel = function(panel) {
+    ['signin','signup'].forEach(p => document.getElementById('card-' + p).classList.remove('active'));
+    document.getElementById('card-' + panel).classList.add('active');
+  }
+
+  // Sign In
+  window.handleSignIn = async function() {
+    const email = document.getElementById('signin-email').value.trim();
+    const password = document.getElementById('signin-password').value;
+    const btn = document.getElementById('btn-signin');
+    if (!email || !password) { showToast('Email dan password wajib diisi!', 'error'); return; }
+    btn.disabled = true; btn.textContent = 'Loading...';
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      showToast('Login berhasil! Mengalihkan...', 'success');
+      setTimeout(() => window.location.href = 'dashboard.html', 1500);
+    } catch (e) {
+      showToast('Email atau password salah!', 'error');
+      btn.disabled = false; btn.textContent = 'SIGN IN';
     }
-  </script>
+  }
+
+  // Sign Up
+  window.handleSignUp = async function() {
+    const email = document.getElementById('signup-email').value.trim();
+    const password = document.getElementById('signup-password').value;
+    const confirm = document.getElementById('signup-confirm').value;
+    const btn = document.getElementById('btn-signup');
+    if (!email || !password || !confirm) { showToast('Semua kolom wajib diisi!', 'error'); return; }
+    if (password !== confirm) { showToast('Password tidak cocok!', 'error'); return; }
+    if (password.length < 6) { showToast('Password minimal 6 karakter!', 'error'); return; }
+    btn.disabled = true; btn.textContent = 'Loading...';
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      showToast('Akun berhasil dibuat!', 'success');
+      setTimeout(() => window.location.href = 'dashboard.html', 1500);
+    } catch (e) {
+      if (e.code === 'auth/email-already-in-use') showToast('Email sudah terdaftar!', 'error');
+      else showToast('Gagal membuat akun. Coba lagi.', 'error');
+      btn.disabled = false; btn.textContent = 'SIGN UP';
+    }
+  }
+
+  // Forgot Password
+  window.handleForgotPassword = async function() {
+    const email = document.getElementById('signin-email').value.trim();
+    if (!email) { showToast('Isi email dulu sebelum reset password!', 'error'); return; }
+    try {
+      await sendPasswordResetEmail(auth, email);
+      showToast('Email reset password sudah dikirim!', 'success');
+    } catch (e) {
+      showToast('Email tidak ditemukan!', 'error');
+    }
+  }
+</script>
 </body>
 </html>
