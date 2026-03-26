@@ -11,200 +11,116 @@
     :root {
       --purple: #6C27D9;
       --purple-dark: #4B0FAD;
-      --purple-light: #9B5EF5;
       --white: #ffffff;
       --gray-bg: #F0F2F5;
       --input-bg: #EFEFEF;
       --text: #1a1a2e;
       --muted: #888;
     }
+
+    /* KUNCI LAYAR ANTI-SCROLL */
     body {
       font-family: 'Inter', sans-serif;
       background: var(--gray-bg);
-      min-height: 100vh;
+      height: 100vh;
+      width: 100vw;
       display: flex;
-      flex-direction: column;
       align-items: center;
       justify-content: center;
+      overflow: hidden; 
     }
+
     .stage {
       width: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 48px 16px;
+      max-width: 900px;
+      padding: 20px;
+      z-index: 10;
     }
+
+    /* KARTU SIMETRIS 50:50 */
     .card {
       display: none;
       width: 100%;
-      max-width: 780px;
       background: var(--white);
-      border-radius: 24px;
-      overflow: hidden;
-      box-shadow: 0 20px 60px rgba(108,39,217,0.12), 0 4px 16px rgba(0,0,0,0.06);
-      animation: cardIn 0.4s ease;
+      border-radius: 32px;
+      box-shadow: 0 30px 70px rgba(108,39,217,0.15);
+      position: relative;
     }
     .card.active { display: flex; }
-    @keyframes cardIn {
-      from { opacity: 0; transform: translateY(18px) scale(0.98); }
-      to   { opacity: 1; transform: translateY(0) scale(1); }
-    }
+
     .form-side {
-      flex: 1;
-      padding: 52px 44px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-    }
-    .form-side h2 {
-      font-family: 'Poppins', sans-serif;
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--text);
-      margin-bottom: 28px;
-    }
-    label {
-      display: block;
-      font-size: 12px;
-      font-weight: 500;
-      color: var(--muted);
-      margin-bottom: 4px;
-      margin-top: 14px;
-    }
-    label:first-of-type { margin-top: 0; }
-    
-    /* Wrapper untuk Input Password agar Ikon berada di dalam */
-    .input-group {
+      flex: 1; 
+      padding: 40px 50px;
+      z-index: 50;
       position: relative;
-      display: flex;
-      align-items: center;
-      width: 100%;
     }
-    
-    input[type="email"], input[type="password"], input[type="text"] {
-      width: 100%;
-      padding: 11px 14px;
-      background: var(--input-bg);
-      border: 1.5px solid transparent;
-      border-radius: 8px;
-      font-size: 14px;
-      font-family: 'Inter', sans-serif;
-      color: var(--text);
-      outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
-    }
-    
-    /* Beri ruang di kanan input agar teks tidak menabrak ikon */
-    .input-group input {
-      padding-right: 42px;
-    }
-
-    input:focus {
-      border-color: var(--purple-light);
-      box-shadow: 0 0 0 3px rgba(108,39,217,0.1);
-      background: #fff;
-    }
-
-    /* Styling Ikon Mata */
-    .toggle-password {
-      position: absolute;
-      right: 12px;
-      cursor: pointer;
-      color: #888;
-      width: 18px;
-      height: 18px;
-      transition: color 0.2s;
-      user-select: none;
-    }
-    .toggle-password:hover {
-      color: var(--purple);
-    }
-
-    .forgot { text-align: right; margin-top: 6px; font-size: 12px; }
-    .forgot a { color: var(--muted); text-decoration: none; cursor: pointer; }
-    .forgot a:hover { color: var(--purple); text-decoration: underline; }
-    
-    .btn-primary {
-      margin-top: 22px;
-      width: 100%;
-      padding: 13px;
-      background: var(--purple);
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-family: 'Poppins', sans-serif;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 1.5px;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.2s, transform 0.1s, box-shadow 0.2s;
-      box-shadow: 0 4px 18px rgba(108,39,217,0.35);
-    }
-    .btn-primary:hover { background: var(--purple-dark); }
-    .btn-primary:active { transform: scale(0.98); }
-    .btn-primary:disabled { background: #aaa; cursor: not-allowed; box-shadow: none; }
-    
-    .switch-link { margin-top: 18px; font-size: 13px; color: var(--muted); }
-    .switch-link a { color: var(--purple); font-weight: 600; text-decoration: none; cursor: pointer; }
-    .switch-link a:hover { text-decoration: underline; }
     
     .banner-side {
-      width: 300px;
-      flex-shrink: 0;
-      background: linear-gradient(145deg, var(--purple) 0%, var(--purple-dark) 100%);
-      padding: 40px 28px 0 28px;
+      flex: 1; 
+      background: linear-gradient(155deg, var(--purple) 0%, var(--purple-dark) 100%);
+      padding: 40px;
+      border-radius: 0 32px 32px 0; 
+      position: relative;
+      min-height: 480px;
       display: flex;
       flex-direction: column;
-      position: relative;
-      overflow: hidden;
-      min-height: 420px;
+      justify-content: flex-start;
+      overflow: visible !important; 
     }
+
     .banner-side h1 {
       font-family: 'Poppins', sans-serif;
-      font-size: 26px;
+      font-size: 36px;
       font-weight: 800;
       color: var(--white);
-      line-height: 1.15;
+      line-height: 1.1;
       margin-bottom: 12px;
+      position: relative;
+      z-index: 60; 
     }
+
     .banner-side p {
-      font-size: 13px;
-      font-weight: 600;
-      color: rgba(255,255,255,0.85);
-      line-height: 1.55;
+      font-size: 14px;
+      color: rgba(255,255,255,0.9);
+      position: relative;
+      z-index: 60;
     }
+
+    /* --- UPDATE: TARIK KE KIRI SEDIKIT (BIAR GAK TERLALU KANAN) --- */
     .banner-img {
       position: absolute;
-      bottom: 0; left: 0; right: 0;
-      width: 100%;
-      height: 75%;
-      object-fit: contain;
-      object-position: bottom center;
-    }
-    
-    .toast {
-      position: fixed;
-      top: 24px; left: 50%;
-      transform: translateX(-50%) translateY(-80px);
-      background: #333;
-      color: #fff;
-      padding: 12px 24px;
-      border-radius: 8px;
-      font-size: 14px;
-      font-family: 'Inter', sans-serif;
-      z-index: 999;
-      transition: transform 0.3s ease;
-      white-space: nowrap;
-    }
-    .toast.show { transform: translateX(-50%) translateY(0); }
-    .toast.success { background: #22c55e; }
-    .toast.error { background: #ef4444; }
+      bottom: -70px; 
+      
+      /* DIKURANGI DARI -500px KE -430px */
+      right: -430px; 
+      left: auto;
 
-    @media (max-width: 620px) {
-      .banner-side { display: none; }
-      .form-side { padding: 40px 28px; }
-      .form-side h2 { white-space: normal; }
+      /* UKURAN TETAP 185% */
+      width: 185%; 
+      height: auto;
+      pointer-events: none; 
+      z-index: 40; 
+      filter: drop-shadow(20px 20px 50px rgba(0,0,0,0.3));
+      object-fit: contain;
+      object-position: right bottom;
+    }
+
+    /* FORM STYLING */
+    .form-side h2 { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+    label { display: block; font-size: 11px; font-weight: 600; color: var(--muted); margin-bottom: 4px; margin-top: 12px; text-transform: uppercase; }
+    input { width: 100%; padding: 12px 16px; background: var(--input-bg); border: 1.5px solid transparent; border-radius: 12px; outline: none; font-size: 14px; }
+    .btn-primary { margin-top: 24px; width: 100%; padding: 14px; background: var(--purple); color: #fff; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s; }
+    .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
+    .switch-link { margin-top: 20px; font-size: 13px; text-align: center; color: var(--muted); }
+    
+    .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #333; color: #fff; padding: 12px 28px; border-radius: 12px; transition: 0.5s; z-index: 1000; }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 850px) {
+      body { overflow-y: auto; height: auto; }
+      .card { flex-direction: column; }
+      .banner-side { border-radius: 24px 24px 0 0; min-height: 250px; }
+      .banner-img { width: 130%; right: -20px; bottom: -30px; left: auto; }
     }
   </style>
 </head>
@@ -213,25 +129,21 @@
 <div class="toast" id="toast"></div>
 
 <div class="stage">
-
   <div class="card active" id="card-signin">
     <div class="form-side">
       <h2>Sign in to your account</h2>
-      <label>Email</label>
+      <label>Email Address</label>
       <input type="email" id="signin-email" placeholder="you@example.com" />
-      
       <label>Password</label>
-      <div class="input-group">
+      <div style="position:relative;">
         <input type="password" id="signin-password" placeholder="••••••••" />
-        <i data-lucide="eye" class="toggle-password" id="icon-signin" onclick="togglePassword('signin-password', 'icon-signin')"></i>
+        <i data-lucide="eye" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); cursor:pointer; color:#aaa; width:18px;" onclick="togglePassword('signin-password', this)"></i>
       </div>
-
-      <div class="forgot"><a onclick="handleForgotPassword()">Forgot password?</a></div>
-      <button class="btn-primary" id="btn-signin" onclick="handleSignIn()">SIGN IN</button>
-      <p class="switch-link">Don't have an account? <a onclick="showPanel('signup')">Sign up here.</a></p>
+      <button class="btn-primary" onclick="handleSignIn()">SIGN IN</button>
+      <p class="switch-link">Don't have an account? <a onclick="showPanel('signup')" style="color:var(--purple); font-weight:700; cursor:pointer;">Sign up here.</a></p>
     </div>
     <div class="banner-side">
-      <h1>WELCOME BACK!</h1>
+      <h1>WELCOME<br/>BACK!</h1>
       <p>Smarter Decisions Start with Better Health Metrics.</p>
       <img class="banner-img" src="4949532_19799.png" alt="Illustration" />
     </div>
@@ -239,24 +151,18 @@
 
   <div class="card" id="card-signup">
     <div class="form-side">
-      <h2>Please sign up here</h2>
-      <label>Email</label>
+      <h2>Create your account</h2>
+      <label>Email Address</label>
       <input type="email" id="signup-email" placeholder="you@example.com" />
-      
       <label>Password</label>
-      <div class="input-group">
+      <div style="position:relative;">
         <input type="password" id="signup-password" placeholder="••••••••" />
-        <i data-lucide="eye" class="toggle-password" id="icon-signup" onclick="togglePassword('signup-password', 'icon-signup')"></i>
+        <i data-lucide="eye" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); cursor:pointer; color:#aaa; width:18px;" onclick="togglePassword('signup-password', this)"></i>
       </div>
-
       <label>Confirm Password</label>
-      <div class="input-group">
-        <input type="password" id="signup-confirm" placeholder="••••••••" />
-        <i data-lucide="eye" class="toggle-password" id="icon-confirm" onclick="togglePassword('signup-confirm', 'icon-confirm')"></i>
-      </div>
-
-      <button class="btn-primary" id="btn-signup" onclick="handleSignUp()">SIGN UP</button>
-      <p class="switch-link">Already have an account? <a onclick="showPanel('signin')">Sign in here.</a></p>
+      <input type="password" id="signup-confirm" placeholder="••••••••" />
+      <button class="btn-primary" onclick="handleSignUp()">SIGN UP</button>
+      <p class="switch-link">Already have an account? <a onclick="showPanel('signin')" style="color:var(--purple); font-weight:700; cursor:pointer;">Sign in here.</a></p>
     </div>
     <div class="banner-side">
       <h1>WELCOME!</h1>
@@ -264,12 +170,12 @@
       <img class="banner-img" src="4949532_19799.png" alt="Illustration" />
     </div>
   </div>
-
 </div>
 
 <script type="module">
+  // FIREBASE CONFIG TETAP SAMA
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
+  import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyB4aNTSgU5wLoarKUGduLnpbwS9gI13PU4",
@@ -277,95 +183,56 @@
     projectId: "manajemen-informasi-biomedis",
     storageBucket: "manajemen-informasi-biomedis.firebasestorage.app",
     messagingSenderId: "80926759256",
-    appId: "1:80926759256:web:123e1e293638aa4e892d2d",
-    measurementId: "G-LGT7PZFWMH"
+    appId: "1:80926759256:web:123e1e293638aa4e892d2d"
   };
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
 
-  // Jalankan Ikon Lucide
   lucide.createIcons();
 
-  // Toast helper
-  function showToast(msg, type = '') {
+  window.togglePassword = function(id, icon) {
+    const input = document.getElementById(id);
+    input.type = input.type === "password" ? "text" : "password";
+    icon.setAttribute('data-lucide', input.type === "password" ? 'eye' : 'eye-off');
+    lucide.createIcons();
+  };
+
+  window.showPanel = function(panel) {
+    document.getElementById('card-signin').style.display = panel === 'signin' ? 'flex' : 'none';
+    document.getElementById('card-signup').style.display = panel === 'signup' ? 'flex' : 'none';
+  };
+
+  function showToast(msg, type) {
     const t = document.getElementById('toast');
     t.textContent = msg;
-    t.className = 'toast ' + type;
-    t.classList.add('show');
-    setTimeout(() => t.classList.remove('show'), 3500);
+    t.className = 'toast show ' + type;
+    setTimeout(() => t.className = 'toast', 3000);
   }
 
-  // Fungsi Show/Hide Password
-  window.togglePassword = function(inputId, iconId) {
-    const passwordInput = document.getElementById(inputId);
-    const iconElement = document.getElementById(iconId);
-    
-    if (passwordInput.type === "password") {
-      passwordInput.type = "text";
-      iconElement.setAttribute('data-lucide', 'eye-off');
-    } else {
-      passwordInput.type = "password";
-      iconElement.setAttribute('data-lucide', 'eye');
-    }
-    lucide.createIcons(); // Re-render ikon
-  }
-
-  // Show panel
-  window.showPanel = function(panel) {
-    ['signin','signup'].forEach(p => document.getElementById('card-' + p).classList.remove('active'));
-    document.getElementById('card-' + panel).classList.add('active');
-  }
-
-  // Sign In
   window.handleSignIn = async function() {
-    const email = document.getElementById('signin-email').value.trim();
-    const password = document.getElementById('signin-password').value;
-    const btn = document.getElementById('btn-signin');
-    if (!email || !password) { showToast('Email dan password wajib diisi!', 'error'); return; }
-    btn.disabled = true; btn.textContent = 'Loading...';
+    const e = document.getElementById('signin-email').value.trim();
+    const p = document.getElementById('signin-password').value;
+    if(!e || !p) return showToast("Isi semua data!", "error");
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      showToast('Login berhasil! Mengalihkan...', 'success');
-      setTimeout(() => window.location.href = 'dashboard.html', 1500);
-    } catch (e) {
-      showToast('Email atau password salah!', 'error');
-      btn.disabled = false; btn.textContent = 'SIGN IN';
-    }
-  }
+      await signInWithEmailAndPassword(auth, e, p);
+      showToast("Berhasil masuk!", "success");
+      setTimeout(() => window.location.href='dashboard.html', 1000);
+    } catch (err) { showToast("Gagal masuk!", "error"); }
+  };
 
-  // Sign Up
   window.handleSignUp = async function() {
-    const email = document.getElementById('signup-email').value.trim();
-    const password = document.getElementById('signup-password').value;
-    const confirm = document.getElementById('signup-confirm').value;
-    const btn = document.getElementById('btn-signup');
-    if (!email || !password || !confirm) { showToast('Semua kolom wajib diisi!', 'error'); return; }
-    if (password !== confirm) { showToast('Password tidak cocok!', 'error'); return; }
-    if (password.length < 6) { showToast('Password minimal 6 karakter!', 'error'); return; }
-    btn.disabled = true; btn.textContent = 'Loading...';
+    const e = document.getElementById('signup-email').value.trim();
+    const p = document.getElementById('signup-password').value;
+    const c = document.getElementById('signup-confirm').value;
+    if(!e || !p) return showToast("Isi semua data!", "error");
+    if(p !== c) return showToast("Password beda!", "error");
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      showToast('Akun berhasil dibuat!', 'success');
-      setTimeout(() => window.location.href = 'dashboard.html', 1500);
-    } catch (e) {
-      if (e.code === 'auth/email-already-in-use') showToast('Email sudah terdaftar!', 'error');
-      else showToast('Gagal membuat akun. Coba lagi.', 'error');
-      btn.disabled = false; btn.textContent = 'SIGN UP';
-    }
-  }
-
-  // Forgot Password
-  window.handleForgotPassword = async function() {
-    const email = document.getElementById('signin-email').value.trim();
-    if (!email) { showToast('Isi email dulu sebelum reset password!', 'error'); return; }
-    try {
-      await sendPasswordResetEmail(auth, email);
-      showToast('Email reset password sudah dikirim!', 'success');
-    } catch (e) {
-      showToast('Email tidak ditemukan!', 'error');
-    }
-  }
+      await createUserWithEmailAndPassword(auth, e, p);
+      showToast("Berhasil daftar!", "success");
+      setTimeout(() => window.location.href='dashboard.html', 1000);
+    } catch (err) { showToast("Gagal daftar!", "error"); }
+  };
 </script>
 </body>
 </html>
