@@ -86,8 +86,7 @@ const allCityNames = [
   "WARSAW", "WEST BRENTWOOD", "WEST SENECA", "YONKERS"
 ];
 
-// ===== DATA 95 FACILITY =====
-// ===== DATA 95 FACILITY (LENGKAP DENGAN WEBSITE) =====
+// ===== DATA 95 FACILITY (LENGKAP DENGAN WEBSITE DAN GAMBAR) =====
 const healthcareFacilities = [
   // ALBANY
   { name: "ALBANY MEDICAL CENTER HOSPITAL", city: "ALBANY", address: "ALBANY, NY", website: "https://www.albanymed.org/", image: "albany.jfif" },
@@ -135,7 +134,7 @@ const healthcareFacilities = [
   { name: "PUTNAM HOSPITAL CENTER", city: "CARMEL", address: "CARMEL, NY", website: "https://www.nuvancehealth.org/locations/putnam-hospital", image: "putnam.jfif" },
   
   // CLIFTON SPRINGS
-  { name: "CLIFTON SPRINGS HOSPITAL AND CLINIC", city: "CLIFTON SPRINGS", address: "CLIFTON SPRINGS, NY", website: "https://www.rochesterregional.org/locations/hospitals/clifton", image: "clif,jfif" },
+  { name: "CLIFTON SPRINGS HOSPITAL AND CLINIC", city: "CLIFTON SPRINGS", address: "CLIFTON SPRINGS, NY", website: "https://www.rochesterregional.org/locations/hospitals/clifton", image: "clif.jfif" },
   
   // CORTLAND
   { name: "GUTHRIE CORTLAND REGIONAL MEDICAL CENTER", city: "CORTLAND", address: "CORTLAND, NY", website: "https://www.guthrie.org/locations/guthrie-cortland-medical-center", image: "guthrie.jfif" },
@@ -212,7 +211,7 @@ const healthcareFacilities = [
   { name: "NYACK HOSPITAL", city: "NYACK", address: "NYACK, NY", website: "https://www.montefiorenyack.org/", image: "nyack.jfif" },
   
   // OCEANSIDE
-  { name: "MOUNT SINAI SOUTH NASSAU", city: "OCEANSIDE", address: "OCEANSIDE, NY", website: "https://www.mountsinai.org/locations/south-nassau", image: "mssn,jfif" },
+  { name: "MOUNT SINAI SOUTH NASSAU", city: "OCEANSIDE", address: "OCEANSIDE, NY", website: "https://www.mountsinai.org/locations/south-nassau", image: "mssn.jfif" },
   
   // OGDENSBURG
   { name: "ST LAWRENCE PSYCHIATRIC CENTER", city: "OGDENSBURG", address: "OGDENSBURG, NY", website: "https://omh.ny.gov/omhweb/facilities/slpc/", image: "lawrence.jfif" },
@@ -293,7 +292,7 @@ const healthcareFacilities = [
   { name: "PILGRIM PSYCHIATRIC CENTER", city: "WEST BRENTWOOD", address: "WEST BRENTWOOD, NY", website: "https://omh.ny.gov/omhweb/facilities/pgpc/", image: "pilgrim.jfif" },
   
   // WEST SENECA
-  { name: "WESTERN NY CHILDRENS PSYCHIATRIC CENTER", city: "WEST SENECA", address: "WEST SENECA, NY", website: "https://omh.ny.gov/omhweb/facilities/wcpc/", image: ".jfif" },
+  { name: "WESTERN NY CHILDRENS PSYCHIATRIC CENTER", city: "WEST SENECA", address: "WEST SENECA, NY", website: "https://omh.ny.gov/omhweb/facilities/wcpc/", image: "western.jfif" },
   
   // YONKERS
   { name: "ST JOSEPH'S MEDICAL CENTER", city: "YONKERS", address: "YONKERS, NY", website: "https://www.saintjosephs.org/", image: "yonkers.jfif" }
@@ -514,17 +513,26 @@ function renderHealthcareGrid() {
   const pageFacilities = healthcareFacilities.slice(start, end);
   
   const container = document.getElementById('healthcareGrid');
-  container.innerHTML = pageFacilities.map(facility => `
-    <a href="${facility.website}" target="_blank" class="healthcare-card">
-      <div class="healthcare-image">
-        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9-4-18-3 9H2"/></svg>
-      </div>
-      <div class="healthcare-info">
-        <div class="healthcare-name">${facility.name.substring(0, 35)}${facility.name.length > 35 ? '...' : ''}</div>
-        <div class="healthcare-address">${facility.address}</div>
-      </div>
-    </a>
-  `).join('');
+  container.innerHTML = pageFacilities.map(facility => {
+    // Cek apakah ada gambar
+    const hasImage = facility.image && facility.image !== '' && facility.image !== '.jfif';
+    const imagePath = `asset/${facility.image}`;
+    
+    return `
+      <a href="${facility.website}" target="_blank" class="healthcare-card">
+        <div class="healthcare-image">
+          ${hasImage ? 
+            `<img src="${imagePath}" style="width: 100%; height: 100%; object-fit: contain; padding: 12px;" onerror="this.onerror=null; this.parentElement.innerHTML='<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'48\' height=\'48\' viewBox=\'0 0 24 24\' fill=\'none\' stroke=\'currentColor\' stroke-width=\'1.5\' stroke-linecap=\'round\' stroke-linejoin=\'round\'><path d=\'M22 12h-4l-3 9-4-18-3 9H2\'/></svg>'">` : 
+            `<svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-4l-3 9-4-18-3 9H2"/></svg>`
+          }
+        </div>
+        <div class="healthcare-info">
+          <div class="healthcare-name">${facility.name.substring(0, 35)}${facility.name.length > 35 ? '...' : ''}</div>
+          <div class="healthcare-address">${facility.address}</div>
+        </div>
+      </a>
+    `;
+  }).join('');
   
   document.getElementById('healthcarePageIndicator').innerHTML = `Page ${healthcareCurrentPage} / ${healthcareTotalPages}`;
   document.getElementById('healthcarePrevBtn').disabled = healthcareCurrentPage === 1;
