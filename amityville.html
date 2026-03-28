@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ALBANY Health Metrics</title>
+    <title>AMITYVILLE Health Metrics</title>
     <link rel="stylesheet" href="stylesheet.css">
     <link href="https://fonts.googleapis.com" rel="stylesheet">
     <link
@@ -52,7 +52,7 @@
     <!-- KONTEN CITY -->
     <div class="container-city-cover">
         <div class="city-left">
-            <h1 class="cityname">ALBANY</h1>
+            <h1 class="cityname">AMITYVILLE</h1>
             <p>
                 A Healthcare Data Analyst accesses the system to monitor and evaluate hospital performance across the
                 state using key performance indicators (KPIs), enabling data-driven decision making and quality
@@ -60,9 +60,9 @@
             </p>
 
             <div class="hospital-list">
-                <li><img src="asset/albany-medical-center.png" class="albany-medical-center"
-                        alt="albany-medical-center"></li>
-                <li><img src="asset/capital-district.jpg" class="capital-district-psych" alt="capital-district-psych">
+                <li><img src="asset/bhc-logo.avif" class="brunswick-hospital-center"
+                        alt="brunswick-hospital-center"></li>
+                <li><img src="asset/nw_soh_logo.png" class="northwell-soh" alt="northwell-soh">
                 </li>
             </div>
         </div>
@@ -83,13 +83,9 @@
             prior to discharge.
         </p>
 
-        <div class="chart-container">
-            <div class="chart-wrapper">
-                <canvas id="smd-chart"></canvas>
-            </div>
-
+        <div class="smd-chart">
+            <canvas id="smd-chart"></canvas>
         </div>
-
     </div>
 
     <div class="content-faph">
@@ -97,16 +93,12 @@
             <h2>FAPH</h2>
         </div>
         <p>
-            <b>FAPH-30:</b>Follow-up after psychiatric hospitalization (30 days) measures the percentage of inpatient
+            FAPH-30: Follow-up after psychiatric hospitalization (30 days) measures the percentage of inpatient
             psychiatric facility hospitalizations for treatment of select mental health or substance use disorders that
             were followed by an outpatient mental health care or substance use disorder encounter within 30 days of
             discharge.
-        </p>
 
-        <p>
-
-            <b>FAPH-7:</b>Follow-up after psychiatric hospitalization (7 days) measures the same population as FAPH-30
-            but
+            FAPH-7: Follow-up after psychiatric hospitalization (7 days) measures the same population as FAPH-30 but
             tracks whether an outpatient mental health or substance use encounter occurred within the first 7 days after
             discharge, reflecting a stricter and more clinically critical window. An outpatient visit with a mental
             health practitioner after discharge is recommended to ensure that the patient's transition to the home or
@@ -114,13 +106,8 @@
             providers detect early post-hospitalization reactions or medication problems.
         </p>
 
-
-
-        <div class="chart-container">
-            <div class="chart-wrapper">
-                <canvas id="smd-chart"></canvas>
-            </div>
-
+        <div class="faph-chart">
+            <canvas id="faph-chart"></canvas>
         </div>
     </div>
 
@@ -137,11 +124,8 @@
             regimens to prevent symptoms and relapse.
         </p>
 
-        <div class="chart-container">
-            <div class="chart-wrapper">
-                <canvas id="smd-chart"></canvas>
-            </div>
-
+        <div class="medcont-chart">
+            <canvas id="medcont-chart"></canvas>
         </div>
     </div>
 
@@ -156,11 +140,8 @@
             against the national rate and evaluated as better than, no different than, or worse than the national rate.
         </p>
 
-        <div class="chart-container">
-            <div class="chart-wrapper">
-                <canvas id="smd-chart"></canvas>
-            </div>
-
+        <div class="readm-chart">
+            <canvas id="readm-chart"></canvas>
         </div>
     </div>
 
@@ -205,6 +186,7 @@
             }
         });
 
+        // Dropdown
         const avatarBtn = document.getElementById('avatar-wrap');
         const dropdown = document.getElementById('dropdown-menu');
         
@@ -217,11 +199,13 @@
             dropdown.classList.remove('open');
         });
 
+        // Logout
         document.getElementById('logout-btn').addEventListener('click', async () => {
             await signOut(auth);
             window.location.href = 'index.html';
         });
 
+        // Modal
         const modalOverlay = document.getElementById('modalOverlay');
         const modalTitle = document.getElementById('modalTitle');
         const modalBody = document.getElementById('modalBody');
