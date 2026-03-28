@@ -12,13 +12,13 @@
       --purple: #6C27D9;
       --purple-dark: #4B0FAD;
       --white: #ffffff;
-      --gray-bg: #F0F2F5;
-      --input-bg: #EFEFEF;
+      --gray-bg: #ffffff;        /* background luar → putih */
+      --form-bg: #E8E8E8;        /* sisi kiri card → abu-abu */
+      --input-bg: #ffffff;       /* input → putih agar kontras di atas abu */
       --text: #1a1a2e;
       --muted: #888;
     }
 
-    /* KUNCI LAYAR ANTI-SCROLL */
     body {
       font-family: 'Inter', sans-serif;
       background: var(--gray-bg);
@@ -27,7 +27,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      overflow: hidden; 
+      overflow: hidden;
     }
 
     .stage {
@@ -37,7 +37,6 @@
       z-index: 10;
     }
 
-    /* KARTU SIMETRIS 50:50 */
     .card {
       display: none;
       width: 100%;
@@ -48,24 +47,27 @@
     }
     .card.active { display: flex; }
 
+    /* SISI KIRI: background abu-abu */
     .form-side {
-      flex: 1; 
+      flex: 1;
       padding: 40px 50px;
       z-index: 50;
       position: relative;
+      background: var(--form-bg);
+      border-radius: 32px 0 0 32px;
     }
-    
+
     .banner-side {
-      flex: 1; 
+      flex: 1;
       background: linear-gradient(155deg, var(--purple) 0%, var(--purple-dark) 100%);
       padding: 40px;
-      border-radius: 0 32px 32px 0; 
+      border-radius: 0 32px 32px 0;
       position: relative;
       min-height: 480px;
       display: flex;
       flex-direction: column;
       justify-content: flex-start;
-      overflow: visible !important; 
+      overflow: visible !important;
     }
 
     .banner-side h1 {
@@ -76,7 +78,7 @@
       line-height: 1.1;
       margin-bottom: 12px;
       position: relative;
-      z-index: 60; 
+      z-index: 60;
     }
 
     .banner-side p {
@@ -86,40 +88,49 @@
       z-index: 60;
     }
 
-    /* --- UPDATE: TARIK KE KIRI SEDIKIT (BIAR GAK TERLALU KANAN) --- */
     .banner-img {
       position: absolute;
-      bottom: -70px; 
-      
-      /* DIKURANGI DARI -500px KE -430px */
-      right: -430px; 
+      bottom: -70px;
+      right: -430px;
       left: auto;
-
-      /* UKURAN TETAP 185% */
-      width: 185%; 
+      width: 185%;
       height: auto;
-      pointer-events: none; 
-      z-index: 40; 
+      pointer-events: none;
+      z-index: 40;
       filter: drop-shadow(20px 20px 50px rgba(0,0,0,0.3));
       object-fit: contain;
       object-position: right bottom;
     }
 
     /* FORM STYLING */
-    .form-side h2 { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 20px; }
+    .form-side h2 { font-family: 'Poppins', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 20px; color: var(--text); }
     label { display: block; font-size: 11px; font-weight: 600; color: var(--muted); margin-bottom: 4px; margin-top: 12px; text-transform: uppercase; }
-    input { width: 100%; padding: 12px 16px; background: var(--input-bg); border: 1.5px solid transparent; border-radius: 12px; outline: none; font-size: 14px; }
+
+    /* Input putih agar kontras di atas abu */
+    input {
+      width: 100%;
+      padding: 12px 16px;
+      background: var(--input-bg);
+      border: 1.5px solid #d0d0d0;
+      border-radius: 12px;
+      outline: none;
+      font-size: 14px;
+      color: var(--text);
+    }
+    input:focus { border-color: var(--purple); }
+
     .btn-primary { margin-top: 24px; width: 100%; padding: 14px; background: var(--purple); color: #fff; border: none; border-radius: 12px; font-weight: 700; cursor: pointer; transition: 0.3s; }
     .btn-primary:hover { background: var(--purple-dark); transform: translateY(-2px); }
     .switch-link { margin-top: 20px; font-size: 13px; text-align: center; color: var(--muted); }
-    
+
     .toast { position: fixed; top: 20px; left: 50%; transform: translateX(-50%) translateY(-100px); background: #333; color: #fff; padding: 12px 28px; border-radius: 12px; transition: 0.5s; z-index: 1000; }
     .toast.show { transform: translateX(-50%) translateY(0); }
 
     @media (max-width: 850px) {
       body { overflow-y: auto; height: auto; }
       .card { flex-direction: column; }
-      .banner-side { border-radius: 24px 24px 0 0; min-height: 250px; }
+      .form-side { border-radius: 24px 24px 0 0; }
+      .banner-side { border-radius: 0 0 24px 24px; min-height: 250px; }
       .banner-img { width: 130%; right: -20px; bottom: -30px; left: auto; }
     }
   </style>
@@ -129,6 +140,7 @@
 <div class="toast" id="toast"></div>
 
 <div class="stage">
+  <!-- SIGN IN CARD -->
   <div class="card active" id="card-signin">
     <div class="form-side">
       <h2>Sign in to your account</h2>
@@ -136,7 +148,7 @@
       <input type="email" id="signin-email" placeholder="you@example.com" />
       <label>Password</label>
       <div style="position:relative;">
-        <input type="password" id="signin-password" placeholder="••••••••" />
+        <input type="password" id="signin-password" placeholder="••••••••" style="padding-right:44px;" />
         <i data-lucide="eye" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); cursor:pointer; color:#aaa; width:18px;" onclick="togglePassword('signin-password', this)"></i>
       </div>
       <button class="btn-primary" onclick="handleSignIn()">SIGN IN</button>
@@ -149,6 +161,7 @@
     </div>
   </div>
 
+  <!-- SIGN UP CARD -->
   <div class="card" id="card-signup">
     <div class="form-side">
       <h2>Create your account</h2>
@@ -156,11 +169,15 @@
       <input type="email" id="signup-email" placeholder="you@example.com" />
       <label>Password</label>
       <div style="position:relative;">
-        <input type="password" id="signup-password" placeholder="••••••••" />
+        <input type="password" id="signup-password" placeholder="••••••••" style="padding-right:44px;" />
         <i data-lucide="eye" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); cursor:pointer; color:#aaa; width:18px;" onclick="togglePassword('signup-password', this)"></i>
       </div>
       <label>Confirm Password</label>
-      <input type="password" id="signup-confirm" placeholder="••••••••" />
+      <!-- DITAMBAH: eye toggle di confirm password -->
+      <div style="position:relative;">
+        <input type="password" id="signup-confirm" placeholder="••••••••" style="padding-right:44px;" />
+        <i data-lucide="eye" style="position:absolute; right:14px; top:50%; transform:translateY(-50%); cursor:pointer; color:#aaa; width:18px;" onclick="togglePassword('signup-confirm', this)"></i>
+      </div>
       <button class="btn-primary" onclick="handleSignUp()">SIGN UP</button>
       <p class="switch-link">Already have an account? <a onclick="showPanel('signin')" style="color:var(--purple); font-weight:700; cursor:pointer;">Sign in here.</a></p>
     </div>
@@ -173,7 +190,6 @@
 </div>
 
 <script type="module">
-  // FIREBASE CONFIG TETAP SAMA
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-auth.js";
 
