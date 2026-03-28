@@ -13,21 +13,27 @@
 </head>
 
 <body>
-    <nav class="navbar">
-        <div class="nav-left">
-            <h1 class="logo">Health Metric</h1>
-        </div>
-
-        <div class="nav-right">
-            <a href="dashboard.html">Home</a>
-            <a href="https://data.cms.gov/provider-data/dataset/q9vs-r7wp#data-table">Dataset</a>
-            <div class="search-box">
-                <input type="text" placeholder="Search bar" id="searchinput">
-                <span class="icon">🔍</span>
+    <div class="navbar-wrap">
+        <div class="navbar">
+            <a class="navbar-logo" href="#">Health Metrics</a>
+            <div class="navbar-right">
+                <a class="nav-link" href="dashboard.html">Home</a>
+                <a class="nav-link" href="https://data.cms.gov/provider-data/dataset/q9vs-r7wp#data-table"
+                    target="_blank">Dataset</a>
+                <div class="search-wrap">
+                    <i data-lucide="search" style="width:14px"></i>
+                    <input type="text" placeholder="Search bar" />
+                </div>
+                <div class="avatar-btn" onclick="toggleDropdown()" id="avatar-wrap">
+                    <i data-lucide="user"></i>
+                    <div class="dropdown" id="dropdown-menu">
+                        <div class="dropdown-email" id="dropdown-email">Loading...</div>
+                        <div class="dropdown-item" onclick="handleLogout()">Logout</div>
+                    </div>
+                </div>
             </div>
-            <img src="asset/userid.png">
         </div>
-    </nav>
+    </div>
 
     <div class="container-city-cover">
         <div class="city-left">
