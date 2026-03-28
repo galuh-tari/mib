@@ -68,9 +68,13 @@
             prior to discharge.
         </p>
 
-        <div class="smd-chart">
-            <canvas id="smd-chart"></canvas>
+        <div class="chart-container">
+            <div class="chart-wrapper">
+                <canvas id="smd-chart"></canvas>
+            </div>
+
         </div>
+
     </div>
 
     <div class="content-faph">
@@ -130,28 +134,14 @@
         </div>
     </div>
 
-    <footer class="footer">
-        <div class="footer-left">
-            <h1 class="logo">Health Metrics</h1>
-            <div class="address">
-                <p>Olivia Carter</p>
-                <p>7428 Maplewood Drive</p>
-                <p>Brookhaven, NY 30329</p>
-                <p>United State</p>
-            </div>
-
-        </div>
+    <div class="footer-section">
+        <div class="footer-logo">Health Metrics</div>
         <div class="footer-right">
-            <p>Source:</p>
-            <div class="source-link">
-                <a href="https://data.cms.gov/provider-data/dataset/q9vs-r7wp#data-table ">Dataset </a>
-                <a
-                    href="https://www.cms.gov/medicare/quality/initiatives/hospital-quality-initiative/inpatient-psychiatric-facility-quality-reporting-ipfqr-program">IPFQR
-                    Program</a>
-            </div>
-
+            <a href="https://data.cms.gov/provider-data/dataset/q9vs-r7wp#data-table" target="_blank"
+                class="footer-source">Source: Dataset</a>
+            <a href="#" class="footer-source" onclick="openIPFQR()">IPFQR Program</a>
         </div>
-    </footer>
+    </div>
 
 
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
