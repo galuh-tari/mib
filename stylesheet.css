@@ -1,0 +1,331 @@
+
+html, body {
+  overflow-x: hidden;
+}
+
+@import url('https://fonts.googleapis.com');
+
+body {
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ---------------------------------------------- NAVIGATION BAR --------------------------------------------------- */
+
+.navbar {
+    max-width: 1800px;
+    max-height: 30px;
+    min-height: 30px;
+    margin: 20px auto;
+    padding: 12px 24px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    background: linear-gradient(90deg, #7b2ff7, #a044ff);
+    border-radius: 50px;
+    color: white;
+    z-index: 999;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: 800;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.nav-right a {
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
+    text-decoration: none;
+    padding: 20px;
+}
+
+.nav-right img {
+    max-width: 25px;
+    max-height: 25px;
+    padding-left: 12px;
+}
+
+.search-box {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 20px;
+    padding: 4px 10px;
+    max-height: 20px;
+}
+
+.search-box input {
+    border: none;
+    outline: none;
+    padding: 6px;
+    border-radius: 20px;
+}
+
+.icon {
+    font-size: 14px;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+    }
+
+    .navbar-right {
+        width: 100%;
+        justify-content:space-between;
+        flex-wrap: wrap;
+    }
+
+    .search-box {
+        width: 100%;
+    }
+
+    .search-box input{
+        width: 100%;
+    }
+}
+
+/* ------------------------------------- CONTAINER CITY COVER -------------------------------------- */
+
+.container-city-cover {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 7%;
+    padding-top: 10%;
+    max-width: 50%;
+    position: relative;
+}
+
+.city-left h1 {
+    color: #7b2ff7;
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-size: 40px;
+}
+
+.city-left p{
+    color: #6f6a6a;
+    margin-top: 3%;
+    margin-bottom: 10%;
+}
+
+.hospital-list {
+    display: flex;
+    gap: 16px;
+    list-style: none; /* hilangin bullet */
+    padding: 0;
+    margin: 0;
+    overflow-x: auto;
+}
+
+.city-right img {
+    position: absolute;
+    right: -250px;
+    top: 0;
+    height: 100%;
+    transform: rotate(-16deg) translateY(70px);
+    filter: blur(1px);
+    z-index: -1;
+}
+
+.city-right {
+    overflow-x: hidden;
+    z-index: 0;
+}
+
+/*------------------------------- ALBANY ------------------------------------ */
+
+.albany-medical-center {
+    width: 230px;
+    height: 40px;
+}
+
+.capital-district-psych {
+    width: 230px;
+    height: 50px;
+}
+
+/* -----------------------------AMYTIVILLE -------------------------------*/
+.brunswick-hospital-center {
+    width: 230px;
+    height: 50px;
+}
+
+.northwell-soh {
+    width: 230px;
+    height: 40px;
+    padding-top: 5px;
+}
+
+/* ------------------------------------------ CONTENT SMD ---------------------------------------*/
+
+.content-smd {
+    margin-left: 80px;
+    margin-top: 120px;
+    max-width: 90%;
+}
+.smd-card {
+  background-color: #d9d9d9;
+  width: 544px;
+  /* margin-left: 80px;
+  margin-top: 120px; */
+}
+.content-smd .smd-card h2 {
+    font-family: 'Poppins', sans-serif;
+    padding-left: 17px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+
+.content-smd p {
+    font-family: 'Poppins', sans-serif;
+    text-align: justify;
+    hyphens: auto; 
+   color: #000000a6;
+   opacity: 0.7;
+}
+
+#smd-chart {
+    width: 100%;
+    height: 300px;
+}
+
+/* ---------------------------------- CONTENT FAPH ---------------------------------------------*/
+.content-faph {
+    margin-left: 80px;
+    margin-top: 120px;
+    max-width: 90%;
+}
+.faph-card {
+  background-color: #d9d9d9;
+  width: 544px;
+  /* margin-left: 80px;
+  margin-top: 120px; */
+}
+.content-faph .faph-card h2 {
+    font-family: 'Poppins', sans-serif;
+    padding-left: 17px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+
+.content-faph p {
+    font-family: 'Poppins', sans-serif;
+    text-align: justify;
+    hyphens: auto; 
+   color: #000000a6;
+   opacity: 0.7;
+}
+
+#faph-chart {
+    width: 100%;
+    height: 300px;
+}
+
+/* ---------------------------------- CONTENT MEDCONT ---------------------------------------------*/
+.content-medcont {
+    margin-left: 80px;
+    margin-top: 120px;
+    max-width: 90%;
+}
+.medcont-card {
+  background-color: #d9d9d9;
+  width: 544px;
+  /* margin-left: 80px;
+  margin-top: 120px; */
+}
+.content-medcont .medcont-card h2 {
+    font-family: 'Poppins', sans-serif;
+    padding-left: 17px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+
+.content-medcont p {
+    font-family: 'Poppins', sans-serif;
+    text-align: justify;
+    hyphens: auto; 
+   color: #000000a6;
+   opacity: 0.7;
+}
+
+#medcont-chart {
+    width: 100%;
+    height: 300px;
+}
+
+/* ---------------------------------- CONTENT READM ---------------------------------------------*/
+.content-readm {
+    margin-left: 80px;
+    margin-top: 120px;
+    max-width: 90%;
+}
+.readm-card {
+  background-color: #d9d9d9;
+  width: 544px;
+  /* margin-left: 80px;
+  margin-top: 120px; */
+}
+.content-readm .readm-card h2 {
+    font-family: 'Poppins', sans-serif;
+    padding-left: 17px;
+    padding-bottom: 4px;
+    padding-top: 4px;
+}
+
+.content-readm p {
+    font-family: 'Poppins', sans-serif;
+    text-align: justify;
+    hyphens: auto; 
+   color: #000000a6;
+   opacity: 0.7;
+}
+
+#readm-chart {
+    width: 100%;
+    height: 300px;
+}
+
+.footer {
+    max-width: 1800px;
+    max-height: 200px;
+    margin: 20px auto;
+    padding: 12px 24px;
+
+    display: flex;
+    gap: 150px;
+
+    background: linear-gradient(90deg, #7b2ff7, #a044ff);
+    border-radius: 30px;
+    color: white;
+    z-index: 999;
+}
+
+.address p {
+    padding: 0%;
+    font-size: small;
+    font-family: 'Poppins', sans-serif;
+}
+.footer-right {
+    margin-right: 50px;
+}
+.source-link a {
+    display: block;
+    margin-bottom: 5px;
+    text-decoration: underline;
+    color: white;
+    font-size: small;
+    font-family: 'Poppins', sans-serif;
+}
