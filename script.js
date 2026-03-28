@@ -1,4 +1,25 @@
+window.handleLogout = async function() { await signOut(auth); window.location.href = 'index.html'; };
+window.toggleDropdown = function() { document.getElementById('dropdown-menu').classList.toggle('open'); };
+
 let currentPage = 1, citiesPerPage = 10, totalPages = Math.ceil(57 / citiesPerPage), chart1, currentKPI = 'ALL';
+
+document.addEventListener('click', (e) => {
+
+    const wrap = document.getElementById('avatar-wrap');
+
+    if (wrap && !wrap.contains(e.target)) document.getElementById('dropdown-menu').classList.remove('open');
+
+    const selectContainer = document.getElementById('citySelect');
+
+    if (selectContainer && !selectContainer.contains(e.target)) {
+
+      document.getElementById('selectItems').classList.remove('show');
+
+      document.querySelector('.select-selected').classList.remove('active');
+
+    }
+
+  });
 
 function updateChart1() {
 
